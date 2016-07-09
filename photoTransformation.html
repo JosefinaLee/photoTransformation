@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>photoTransformation</title>
+	<style>
+		body{
+			background-color: #111;
+		}
+		#stage{
+			width: 1000px;
+			height: 400px;
+			/*background-color: #ccc;*/
+			margin: 50px auto;
+			position: relative;
+			-webkit-perspective: 900px;
+			-moz-perspective: 900px;
+			-ms-perspective: 900px;
+			perspective: 900px;
+			-webkit-perspective-origin: center -5%;
+			-moz-perspective-origin: center -5%;
+			-ms-perspective-origin: center -5%;
+			perspective-origin: center -5%;
+		}
+		#container{
+			width: 200px;
+			height: 130px;
+			/*background-color: red;*/
+			position: absolute;
+			top: 100px;
+			left: 50%;
+			margin-left: -100px;
+			-webkit-transform-style: preserve-3d;
+			-moz-transform-style: preserve-3d;
+			-ms-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+			-webkit-transition: transform 1s ease;
+			-o-transition: transform 1s ease;
+			transition: transform 1s ease;
+		}
+		#container img{
+			width: 200px;
+			height: 130px;
+			position: absolute;
+			bottom: 0;
+			-webkit-transition: transform 1s ease;
+			-o-transition: transform 1s ease;
+			transition: transform 1s ease;
+		}
+	</style>
+</head>
+<body>
+	<div id="stage">
+		<div id="container"></div>
+
+	</div>
+	<script>
+		var oContainer = document.getElementById("container");
+		var html = "";
+		var index = 0, now = 0;
+		for(var i=0; i<9; i++){
+			var oImg = new Image();
+			oImg.onload = function(){
+				now++;
+				if(now==9){
+					var aImg = oContainer.getElementsByTagName("img");
+					for(var i=0; i<aImg.length; i++){
+						(function(index){
+							setTimeout(function(){
+								aImg[index].style.WebkitTransform = " rotateY("+ (40*index) +"deg) translateZ(300px)";
+								aImg[index].style.MozTransform = " rotateY("+ (40*index) +"deg) translateZ(300px)";
+								aImg[index].style.MsTransform = " rotateY("+ (40*index) +"deg) translateZ(300px)";
+								aImg[index].style.OTransform = " rotateY("+ (40*index) +"deg) translateZ(300px)";
+								aImg[index].style.Transform = " rotateY("+ (40*index) +"deg) translateZ(300px)";
+
+							}, 100*(9-index));
+						})(i);
+					}
+				};
+			};
+			oImg.src = "image/"+ (i+1) +".jpg";
+			oContainer.appendChild(oImg);
+		}
+		oContainer.onclick = function(){
+			index++;
+			oContainer.style.WebkitTransform = 'rotateY(-'+(40*index)+'deg)';
+			oContainer.style.MozTransform = 'rotateY(-'+(40*index)+'deg)';
+			oContainer.style.MsTransform = 'rotateY(-'+(40*index)+'deg)';
+			oContainer.style.OTransform = 'rotateY(-'+(40*index)+'deg)';
+			oContainer.style.Transform = 'rotateY(-'+(40*index)+'deg)';
+		};
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
